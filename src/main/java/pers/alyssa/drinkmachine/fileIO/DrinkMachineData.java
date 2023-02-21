@@ -1,14 +1,16 @@
-package pers.alyssa.drinkmachine;
+package pers.alyssa.drinkmachine.fileIO;
 
 import com.google.gson.Gson;
 import net.mamoe.mirai.console.data.Value;
 import net.mamoe.mirai.console.data.java.JavaAutoSavePluginData;
-import net.mamoe.mirai.console.plugin.PluginFileExtensions;
 import org.jetbrains.annotations.NotNull;
+import pers.alyssa.drinkmachine.Drink;
+import pers.alyssa.drinkmachine.DrinkMachine;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
@@ -17,7 +19,7 @@ import java.util.regex.Pattern;
 public class DrinkMachineData extends JavaAutoSavePluginData {
     public static final DrinkMachineData INSTANCE = new DrinkMachineData("drinkMachine");
 
-    public static final Value<HashMap<Integer,Drink>> DRINKS_MAP = INSTANCE.typedValue("DRINKS_MAP",createKType(HashMap.class,createKType(Integer.class), createKType(Drink.class)));
+    public static final HashMap<Integer, Drink> DRINKS_MAP = new HashMap<>();
 
     public DrinkMachineData(@NotNull String saveName) {
         super(saveName);
@@ -25,14 +27,13 @@ public class DrinkMachineData extends JavaAutoSavePluginData {
 
 
 
-    public static void juiceToJson() throws IOException {
-        String packetPath = "src/main/resources/alyssa/assets/drinkmachine";
+    public static void drinkToJson() throws IOException {
         LinkedList<Drink> drinks = new LinkedList<>();
         Drink drink = null;
         StringBuilder sb = null;
-        BufferedReader reader = new BufferedReader(new InputStreamReader(DrinkMachine.INSTANCE.getResourceAsStream(packetPath + "/drinks.txt")));
+        BufferedReader reader = new BufferedReader(new FileReader("/drinks.txt"));
         boolean flag = false;
-        String patten_str = "\\b-*[1-9][0-9]?\\.";
+        String patten_str = "-*[0-9]+\\b";
         Pattern pattern = Pattern.compile(patten_str);
         while (reader.ready()){
             String line = reader.readLine();
@@ -82,14 +83,17 @@ public class DrinkMachineData extends JavaAutoSavePluginData {
 
     public static void loadDrink() throws IOException {
         Gson gson = new Gson();
-        Drink[] drinks = gson.fromJson(new InputStreamReader(DrinkMachine.INSTANCE.getResourceAsStream(DrinkMachine.MAIN_DRINK_MACHINE_ASSETS_DIR + "/drinks.json")), Drink[].class);
+        Drink[] drinks = gson.fromJson(DrinkMachine.INSTANCE.getResource(DrinkMachine.MAIN_DRINK_MACHINE_ASSETS_DIR + "/drinks.json"), Drink[].class);
         for (Drink drink : drinks) {
-            DrinkMachineData.DRINKS_MAP.get().put(drink.getId(), drink);
+            DrinkMachineData.DRINKS_MAP.put(drink.getId(), drink);
         }
     }
 
     public static void main(String[] args) throws IOException {
-        juiceToJson();
-//        loadDrink();
+        drinkToJson();
+    }
+
+    public Drink getDrink(int id) {
+        return DrinkMachineData.DRINKS_MAP.get(id);
     }
 }

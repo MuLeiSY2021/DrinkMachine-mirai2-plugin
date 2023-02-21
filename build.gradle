@@ -6,9 +6,18 @@ plugins {
 }
 
 group = 'pers.alyssa.drinkmachine'
-version = '1.0.1'
+version = '1.1.4'
 
 repositories {
-    maven { url 'https://maven.aliyun.com/repository/public' }
+//    maven { url 'https://maven.aliyun.com/repository/public' }
+    maven { url 'https://repo.spring.io/libs-release' }
+    maven { url 'https://repo1.maven.org/maven2/'}
     mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'net.mamoe:mirai-console:2.14.0'
+    implementation 'net.mamoe:mirai-core-all:2.14.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1'
 }

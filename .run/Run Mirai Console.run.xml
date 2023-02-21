@@ -1,8 +1,13 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Run Mirai Console" type="GradleRunConfiguration" factoryName="Gradle" folderName="Mirai">
     <ExternalSystemSettings>
+      <option name="env">
+        <map>
+          <entry key="MIRAI" value="/opt/mirai" />
+        </map>
+      </option>
       <option name="executionName" />
-      <option name="externalProjectPath" value="~/IdeaProjects/AlyssaBotPlugin/DrinkMachine" />
+      <option name="externalProjectPath" value="$PROJECT_DIR$/DrinkMachine" />
       <option name="externalSystemIdString" value="GRADLE" />
       <option name="scriptParameters" value="--stacktrace" />
       <option name="taskDescriptions">

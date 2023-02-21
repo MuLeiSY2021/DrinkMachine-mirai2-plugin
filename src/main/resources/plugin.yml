@@ -1,0 +1,6 @@
+id: net.mamoe.chat-command
+version: 0.3.0
+name: Chat Command
+author: Mamoe Technologies
+dependencies: [ ] # 或者不写这行
+info: 允许在聊天环境执行指令。

@@ -1,4 +1,4 @@
-package pers.alyssa.handler.drinkmachine;
+package pers.alyssa.drinkmachine;
 
 public class Drink {
     private final Integer id;

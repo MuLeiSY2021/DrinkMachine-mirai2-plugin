@@ -1,4 +1,4 @@
-package pers.alyssa.protocol;
+package pers.alyssa.protoctl;
 
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.message.data.MessageChain;
